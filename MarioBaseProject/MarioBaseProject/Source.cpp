@@ -12,6 +12,10 @@ SDL_Window* g_Window = nullptr;
 // Function Prototypes
 bool InitSDL();
 void CloseSDL();
+bool Update();
+
+
+// Function declartion
 
 bool InitSDL()
 {
@@ -60,13 +64,68 @@ void CloseSDL()
 	SDL_Quit();
 }
 
+bool Update()
+{
+	bool success = true;
+	// Event Handler
+	SDL_Event e;
+
+	// Get the events
+	SDL_PollEvent( &e ); // passing reference => allow e to be adjusted in the SDL_PollEvent
+
+	// Handle events
+	switch ( e.type )
+	{
+		// Click X to quit
+	case SDL_QUIT:
+		success = true;
+		break;
+		// after press button and release
+	case SDL_KEYUP:
+		switch (e.key.keysym.sym)
+		{
+			// quit also
+		case SDLK_q:
+			success = true;
+			break;
+			// just for prepare
+		case SDLK_UP:
+			break;
+		case SDLK_DOWN:
+			break;
+		case SDLK_LEFT:
+			break;
+		case SDLK_RIGHT:
+			break;
+		default:
+			break;
+		}
+		// when press mouse button
+	case SDL_MOUSEBUTTONDOWN:
+		break;
+	default:
+		success = false;
+		break;
+	}
+
+	return success;
+}
+
+
+// Main function
+
 int main(int argc, char* args[])
 {
+	// Flag to check if user want to quit
+	bool quit = false;
+
 	// Check if SDL was set up correctly
 	if (InitSDL())
 	{
-		// Pause 5 sec
-		SDL_Delay(5000);
+		while (!quit)
+		{
+			quit = Update();
+		}
 	}
 
 	// Close Window and free resource
