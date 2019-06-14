@@ -5,6 +5,7 @@
 #include "Constants.h"
 #include "Texture2D.h"
 #include "Commons.h"
+#include "SceneManager.h"
 
 using namespace std;
 
@@ -13,8 +14,9 @@ using namespace std;
 // Globals
 SDL_Window* g_Window = nullptr; // the window
 SDL_Renderer* g_Renderer = nullptr; // the renderer to draw to screen any textures associated with it
-Texture2D* g_Texture = nullptr; // the texture
+SceneMaganer* g_SceneMgr = nullptr; 
 float g_Angle = 0.0f; // angle flip
+Uint32 g_OldTime;
 
 // Function Prototypes
 bool InitSDL();
@@ -81,27 +83,20 @@ bool InitSDL()
 		return false;
 	}
 
-	// Load the texture
-	g_Texture = new Texture2D(g_Renderer);
-	if (!g_Texture->LoadFromFile("Images/test image.bmp"))
-	{
-		return false;
-	}
-
 	// if jump here => all good, return the true 
 	return true;
 }
 
 void CloseSDL()
 {
-	// Release the texture
-	if (g_Texture)
-		delete g_Texture;
-	g_Texture = nullptr;
-
 	// Release the window
 	SDL_DestroyWindow(g_Window);
 	g_Window = nullptr;
+
+	// destroy the scene mgr
+	if (g_SceneMgr)
+		delete g_SceneMgr;
+	g_SceneMgr = nullptr;
 
 	// Quit SDL subsystem
 	IMG_Quit(); // dieptt - Is it nesseessary
@@ -111,6 +106,9 @@ void CloseSDL()
 bool Update()
 {
 	bool success = true;
+	// new time
+	Uint32 newTime = SDL_GetTicks();
+
 	// Event Handler
 	SDL_Event e;
 
@@ -155,6 +153,11 @@ bool Update()
 		break;
 	}
 
+	g_SceneMgr->Update((float)(newTime - g_OldTime) / 1000.0f, e);
+
+	// set the current time to be the old
+	g_OldTime = newTime;
+
 	return success;
 }
 
@@ -164,15 +167,7 @@ void Render()
 	SDL_SetRenderDrawColor(g_Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(g_Renderer);
 
-	// Set where to render texture
-	SDL_Rect renderLocation = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-
-	//  Render to screen
-	SDL_RendererFlip rFlip = SDL_FLIP_HORIZONTAL;
-
-	// Render texture
-	g_Texture->Render(Vector2D(), rFlip, g_Angle);
-	//g_Texture->Render(Vector2D(), rFlip);
+	g_SceneMgr->Render();
 
 	// Update the screen
 	SDL_RenderPresent(g_Renderer);
@@ -188,6 +183,11 @@ int main(int argc, char* args[])
 	// Check if SDL was set up correctly
 	if (InitSDL())
 	{
+		//Set up the scene manager - with level 1 as start
+		g_SceneMgr = new SceneMaganer(g_Renderer, SCENES::LEVEL_1);
+
+		g_OldTime = SDL_GetTicks(); // 1 frame time track
+
 		while (!quit)
 		{
 			// do render while update
