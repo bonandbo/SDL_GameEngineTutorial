@@ -141,6 +141,7 @@
     <ClInclude Include="Commons.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneIntro.h" />
     <ClInclude Include="SceneLevel1.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Texture2D.h" />
