@@ -3,13 +3,17 @@
 #include <SDL_Image.h>
 #include <SDL_mixer.h>
 #include "Constants.h"
+#include "Texture2D.h"
+#include "Commons.h"
 
 using namespace std;
+
+// Game Class ( after tutorial 5 ? )
 
 // Globals
 SDL_Window* g_Window = nullptr; // the window
 SDL_Renderer* g_Renderer = nullptr; // the renderer to draw to screen any textures associated with it
-SDL_Texture* g_Texture = nullptr; // the texture
+Texture2D* g_Texture = nullptr; // the texture
 float g_Angle = 0.0f; // angle flip
 
 // Function Prototypes
@@ -17,8 +21,6 @@ bool InitSDL();
 void CloseSDL();
 bool Update();
 void Render();
-SDL_Texture* LoadTextureFromFile(std::string path);
-void FreeTexture();
 
 
 // Function declartion
@@ -79,9 +81,12 @@ bool InitSDL()
 		return false;
 	}
 
-	g_Texture = LoadTextureFromFile("Images/test image.bmp");
-	if (!g_Texture)
+	// Load the texture
+	g_Texture = new Texture2D(g_Renderer);
+	if (!g_Texture->LoadFromFile("Images/test image.bmp"))
+	{
 		return false;
+	}
 
 	// if jump here => all good, return the true 
 	return true;
@@ -89,8 +94,10 @@ bool InitSDL()
 
 void CloseSDL()
 {
-	// Free resource texture
-	FreeTexture();
+	// Release the texture
+	if (g_Texture)
+		delete g_Texture;
+	g_Texture = nullptr;
 
 	// Release the window
 	SDL_DestroyWindow(g_Window);
@@ -161,47 +168,14 @@ void Render()
 	SDL_Rect renderLocation = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	//  Render to screen
-	SDL_RendererFlip rFlip = SDL_FLIP_VERTICAL;
-	SDL_RenderCopyEx(g_Renderer, g_Texture, nullptr, &renderLocation, g_Angle, nullptr, rFlip);
+	SDL_RendererFlip rFlip = SDL_FLIP_HORIZONTAL;
+
+	// Render texture
+	g_Texture->Render(Vector2D(), rFlip, g_Angle);
+	//g_Texture->Render(Vector2D(), rFlip);
 
 	// Update the screen
 	SDL_RenderPresent(g_Renderer);
-}
-
-SDL_Texture* LoadTextureFromFile(std::string path)
-{
-	// Remove mem used for a previous tẽture
-	FreeTexture();
-
-	SDL_Texture* pTexture = nullptr;
-
-	// Load image
-	SDL_Surface* pSurface = IMG_Load(path.c_str());
-	if (pSurface)
-	{
-		pTexture = SDL_CreateTextureFromSurface(g_Renderer, pSurface);
-		if (!pTexture)
-		{
-			LOG("Cannot create texture from surface. E: %s", SDL_GetError());
-		}
-	}
-	else
-	{
-		LOG("Can not load Image. E: %s", IMG_GetError());
-	}
-
-	SDL_FreeSurface(pSurface);
-
-	return pTexture;
-}
-
-void FreeTexture()
-{
-	if (g_Texture)
-	{
-		SDL_DestroyTexture(g_Texture);
-		g_Texture = nullptr;
-	}
 }
 
 // Main function
