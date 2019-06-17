@@ -15,6 +15,7 @@ public:
 
 	virtual void Render();
 	virtual void Update(float deltaTime, SDL_Event e);
+	virtual void MoveHorizontal(float deltaTime);
 
 	void SetPosition(Vector2D pos);
 	Vector2D GetPosition();
@@ -23,4 +24,6 @@ private:
 	Vector2D m_Position;
 	Texture2D* m_Texture;
 	DIRECTION m_Direction;
+	bool m_IsMovingLeft;
+	bool m_IsMoving;
 };
