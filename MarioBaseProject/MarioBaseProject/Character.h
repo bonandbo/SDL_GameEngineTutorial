@@ -19,6 +19,8 @@ public:
 
 	void SetPosition(Vector2D pos);
 	Vector2D GetPosition();
+	void AddGravity(float deltaTime);
+	void Jump();
 private:
 	SDL_Renderer* m_Renderer;
 	Vector2D m_Position;
@@ -26,4 +28,7 @@ private:
 	DIRECTION m_Direction;
 	bool m_IsMovingLeft;
 	bool m_IsMoving;
+	float m_JumpForce;
+	bool m_IsJumping;
+	bool m_CanJump;
 };

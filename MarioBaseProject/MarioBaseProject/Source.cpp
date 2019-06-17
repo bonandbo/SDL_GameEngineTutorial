@@ -105,7 +105,7 @@ void CloseSDL()
 
 bool Update()
 {
-	bool success = true;
+	bool success = false;
 	// new time
 	Uint32 newTime = SDL_GetTicks();
 
@@ -121,21 +121,6 @@ bool Update()
 		// Click X to quit
 	case SDL_QUIT:
 		success = true;
-		break;
-		// after press button and release
-	case SDL_KEYUP:
-		success = false;
-		switch (e.key.keysym.sym)
-		{
-			// quit also
-		case SDLK_q:
-			success = true;
-			break;
-			// just for prepare
-		}
-		break;
-	default:
-		success = false;
 		break;
 	}
 

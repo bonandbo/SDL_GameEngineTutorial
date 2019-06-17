@@ -10,6 +10,7 @@ Character::Character()
 	m_Direction = DIRECTION::RIGHT;
 	m_IsMovingLeft = false;
 	m_IsMoving = false;
+	m_JumpForce = 0.0f;
 }
 
 Character::Character(SDL_Renderer* renderer, std::string path, Vector2D startPosition)
@@ -18,6 +19,7 @@ Character::Character(SDL_Renderer* renderer, std::string path, Vector2D startPos
 	m_Position = startPosition;
 	m_Direction = DIRECTION::RIGHT;
 	m_IsMovingLeft = false;
+	m_JumpForce = JUMP_FORCE;
 	m_Texture = new Texture2D(renderer);
 	if (!m_Texture->LoadFromFile(path.c_str()))
 	{
@@ -38,17 +40,35 @@ Character::~Character()
 	}
 }
 
+void Character::Jump()
+{
+	if (!m_IsJumping)
+	{
+		m_JumpForce = JUMP_FORCE;
+		m_IsJumping = true;
+		m_CanJump = false;
+	}
+}
+
+void Character::AddGravity(float deltaTime)
+{
+	if (m_JumpForce <= 0)
+	{
+		m_Position.y += GRAVITY * deltaTime;
+	}
+}
+
 void Character::MoveHorizontal(float deltaTime)
 {
 	if (m_IsMovingLeft)
 	{
 		m_Direction = DIRECTION::LEFT;
-		m_Position.x -= (MARIO_SPD * deltaTime); // is that true to put it here ?
+		m_Position.x -= (MOVEMENT_SPD * deltaTime); // is that true to put it here ?
 	}
 	else
 	{
 		m_Direction = DIRECTION::RIGHT;
-		m_Position.x += (MARIO_SPD * deltaTime); // is that true to put it here ?
+		m_Position.x += (MOVEMENT_SPD * deltaTime); // is that true to put it here ?
 	}
 }
 
@@ -68,6 +88,28 @@ void Character::Render()
 
 void Character::Update(float deltaTime, SDL_Event e)
 {
+	if (m_Position.y >= INITIAL_POS_MARIO_Y)
+	{
+		m_CanJump = true;
+	}
+	else
+	{
+		m_CanJump = false;
+		AddGravity(deltaTime);
+	}
+	//LOG("y = %f", m_Position.y);
+
+	if (m_IsJumping)
+	{
+		m_Position.y -= m_JumpForce * deltaTime;
+		m_JumpForce -= GRAVITY * deltaTime;
+		LOG("jump Force = %f", m_JumpForce);
+		if (m_JumpForce <= 0.0f)
+		{
+			m_IsJumping = false;
+		}
+	}
+
 	if(m_IsMoving)
 		MoveHorizontal(deltaTime);
 
@@ -95,6 +137,10 @@ void Character::Update(float deltaTime, SDL_Event e)
 			break;
 		case SDLK_RIGHT:
 			m_IsMoving = false;
+			break;
+		case SDLK_UP:
+			if(m_CanJump)
+				Jump();
 			break;
 		}
 		break;

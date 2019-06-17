@@ -1,6 +1,7 @@
 #include "SceneLevel1.h"
 #include "Texture2D.h" // finally, we kept our promise
 #include <iostream>
+//#include "Constants.h"
 
 
 SceneLevel1::SceneLevel1() : m_BackgroundTex(nullptr), m_Mario(nullptr) { }
@@ -50,7 +51,7 @@ bool SceneLevel1::SetLevel()
 	}
 
 	// Set up the character
-	m_Mario = new Character(m_Renderer, std::string(FOLDER_IMG).append("/").append(MARIO_IMG).c_str(), Vector2D(64, 330)); 
+	m_Mario = new Character(m_Renderer, std::string(FOLDER_IMG).append("/").append(MARIO_IMG).c_str(), Vector2D(64, INITIAL_POS_MARIO_Y));
 	// why we handle update in character but pass the position here ?
 
 	return true;
