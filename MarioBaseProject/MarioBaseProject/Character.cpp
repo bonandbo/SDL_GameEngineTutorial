@@ -43,12 +43,12 @@ void Character::MoveHorizontal(float deltaTime)
 	if (m_IsMovingLeft)
 	{
 		m_Direction = DIRECTION::LEFT;
-		m_Position.x -= MARIO_SPD; // is that true to put it here ?
+		m_Position.x -= (MARIO_SPD * deltaTime); // is that true to put it here ?
 	}
 	else
 	{
 		m_Direction = DIRECTION::RIGHT;
-		m_Position.x += MARIO_SPD; // is that true to put it here ?
+		m_Position.x += (MARIO_SPD * deltaTime); // is that true to put it here ?
 	}
 }
 
@@ -56,12 +56,12 @@ void Character::Render()
 {
 	if (m_Direction == DIRECTION::LEFT)
 	{
-		LOG("x = %f\n", m_Position.x);
+		//LOG("x = %f\n", m_Position.x);
 		m_Texture->Render(m_Position, SDL_FLIP_HORIZONTAL);
 	}
 	else
 	{
-		LOG("x = %f\n", m_Position.x);
+		//LOG("x = %f\n", m_Position.x);
 		m_Texture->Render(m_Position, SDL_FLIP_NONE);
 	} 
 }
