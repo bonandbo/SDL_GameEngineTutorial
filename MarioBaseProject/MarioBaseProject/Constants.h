@@ -11,3 +11,13 @@ constexpr int SCREEN_HEIGHT 416
 
 
 #define LOG(...) { printf(__VA_ARGS__); printf("\n"); }
+
+#define FOLDER_IMG "Images"
+
+#define BACKGROUND_IMG "BackgroundMB.png"
+#define TEST_IMG "test image.bmp"
+#define COIN_IMG "Coin.png"
+#define KOOPA_IMG "Koopa.png"
+#define LUIGI_IMG "Luigi.png"
+#define MARIO_IMG "Mario.png"
+#define POWBLOCK_IMG "PowBlock.png"

@@ -145,9 +145,6 @@ bool Update()
 		default:
 			break;
 		}
-		// when press mouse button
-	case SDL_MOUSEBUTTONDOWN:
-		break;
 	default:
 		success = false;
 		break;

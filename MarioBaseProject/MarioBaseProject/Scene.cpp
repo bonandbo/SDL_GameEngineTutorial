@@ -15,8 +15,8 @@ Scene::Scene(SDL_Renderer* renderer)
 Scene::~Scene()
 {
 	if (m_Renderer)
-		SDL_DestroyRenderer(m_Renderer);
-	m_Renderer = nullptr;
+		// SDL_DestroyRenderer(m_Renderer); // why not here ?
+		m_Renderer = nullptr;
 }
 
 void Scene::Render()

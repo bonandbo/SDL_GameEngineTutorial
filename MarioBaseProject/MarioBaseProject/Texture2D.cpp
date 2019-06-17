@@ -21,8 +21,9 @@ Texture2D::Texture2D(SDL_Renderer* renderer)
 Texture2D::~Texture2D()
 {
 	Free();
-	m_Renderer = nullptr;
-	m_Texture = nullptr;
+	if (m_Renderer)
+		//SDL_DestroyRenderer(m_Renderer); // why can not destroy here ?
+		m_Renderer = nullptr;
 	m_Width = 0;
 	m_Height = 0;
 }
@@ -31,10 +32,9 @@ bool Texture2D::LoadFromFile(std::string path)
 {
 	// what happen if we don't make sure the previous not be cleared
 	// Free texture only here
-	/*if (m_Texture)
-		SDL_DestroyTexture(m_Texture);
-	m_Texture = nullptr;*/
-
+	//if (m_Texture)
+	//	SDL_DestroyTexture(m_Texture);
+	//m_Texture = nullptr;
 	
 	bool success = false;
 	// Load image
@@ -86,10 +86,11 @@ void Texture2D::Render(Vector2D newPosition, SDL_RendererFlip flip, double angle
 
 void Texture2D::Free()
 {
-	if (m_Renderer)
-		SDL_DestroyRenderer(m_Renderer);
-
 	if (m_Texture)
+	{
 		SDL_DestroyTexture(m_Texture);
+		m_Texture = nullptr;
+	}
+
 		
 }

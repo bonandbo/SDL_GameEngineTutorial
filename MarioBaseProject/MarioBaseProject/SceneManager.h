@@ -4,6 +4,8 @@
 #include <SDL.h>
 
 class Scene;
+class SceneLevel1;
+class SceneIntro;
 
 class SceneMaganer
 {
@@ -19,4 +21,6 @@ public:
 private:
 	SDL_Renderer* m_Renderer;
 	Scene* m_CurrentScene;
+	SceneLevel1* m_SceneLvl1;
+	SceneIntro* m_SceneIntro;
 };

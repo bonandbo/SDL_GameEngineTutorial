@@ -126,6 +126,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneIntro.cpp" />
     <ClCompile Include="SceneLevel1.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Source.cpp" />

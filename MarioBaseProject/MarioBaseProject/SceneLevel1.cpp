@@ -13,8 +13,10 @@ SceneLevel1::SceneLevel1(SDL_Renderer* renderer) : Scene(renderer)
 SceneLevel1::~SceneLevel1()
 {
 	if (m_BackgroundTex)
+	{
 		delete m_BackgroundTex;
-	m_BackgroundTex = nullptr;
+		m_BackgroundTex = nullptr;
+	}
 }
 
 void SceneLevel1::Render()
@@ -32,7 +34,11 @@ bool SceneLevel1::SetLevel()
 {
 	// Load the background texture
 	m_BackgroundTex = new Texture2D(m_Renderer);
-	if (!m_BackgroundTex->LoadFromFile("Images/BackgroundMB.png"))
+	std::string dest = "";
+	dest = std::string(FOLDER_IMG);
+	dest.append("/");
+	dest.append(TEST_IMG);
+	if (!m_BackgroundTex->LoadFromFile(dest.c_str()))
 	{
 		LOG("Failed to load texture");
 		return false;
