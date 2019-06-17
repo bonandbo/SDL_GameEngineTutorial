@@ -21,3 +21,5 @@ constexpr int SCREEN_HEIGHT 416
 #define LUIGI_IMG "Luigi.png"
 #define MARIO_IMG "Mario.png"
 #define POWBLOCK_IMG "PowBlock.png"
+
+#define MARIO_SPD 10.0f

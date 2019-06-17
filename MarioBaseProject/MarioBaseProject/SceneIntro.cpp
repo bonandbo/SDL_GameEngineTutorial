@@ -33,7 +33,7 @@ bool SceneIntro::SetBackgroundImage()
 	std::string dest = "";
 	dest = std::string(FOLDER_IMG);
 	dest.append("/");
-	dest.append(BACKGROUND_IMG);
+	dest.append(TEST_IMG);
 	if (!m_Texture->LoadFromFile(dest.c_str()))
 	{
 		LOG("Error load file in SceneIntro\n");

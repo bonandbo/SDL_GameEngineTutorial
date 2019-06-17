@@ -132,19 +132,8 @@ bool Update()
 			success = true;
 			break;
 			// just for prepare
-		case SDLK_UP:
-			g_Angle += 0.1f;
-			break;
-		case SDLK_DOWN:
-			g_Angle -= 0.1f;
-			break;
-		case SDLK_LEFT:
-			break;
-		case SDLK_RIGHT:
-			break;
-		default:
-			break;
 		}
+		break;
 	default:
 		success = false;
 		break;

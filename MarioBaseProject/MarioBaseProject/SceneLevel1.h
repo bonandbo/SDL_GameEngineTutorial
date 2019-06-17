@@ -3,8 +3,10 @@
 #include "Commons.h"
 #include "SDL.h"
 #include "Scene.h"
+#include "Character.h"
 
 class Texture2D; // promise to compiler
+class Character;
 // what if we dont
 
 class SceneLevel1 : Scene
@@ -20,5 +22,5 @@ public:
 private:
 	Texture2D* m_BackgroundTex;
 	bool SetLevel();
-
+	Character* m_Mario;
 };

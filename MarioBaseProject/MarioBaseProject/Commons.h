@@ -19,3 +19,10 @@ enum SCENES
 	GAMEOVER,
 	HIGHSCORE
 };
+
+
+enum DIRECTION
+{
+	LEFT = 0,
+	RIGHT
+};
