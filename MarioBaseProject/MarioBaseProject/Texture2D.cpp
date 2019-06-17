@@ -78,7 +78,7 @@ void Texture2D::Render(Vector2D newPosition, SDL_RendererFlip flip, double angle
 	//SDL_RenderClear(m_Renderer);
 
 	// Set where to draw Texture
-	SDL_Rect renderLocation = { newPosition.x, newPosition.y , m_Width, m_Height };
+	SDL_Rect renderLocation = { (int)newPosition.x, (int)newPosition.y , (int)m_Width, (int)m_Height };
 
 	// Render it
 	SDL_RenderCopyEx(m_Renderer, m_Texture, nullptr, &renderLocation, angle, nullptr, flip);

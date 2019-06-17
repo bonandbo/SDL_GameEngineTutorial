@@ -11,6 +11,7 @@ Character::Character()
 	m_IsMovingLeft = false;
 	m_IsMoving = false;
 	m_JumpForce = 0.0f;
+	m_CollisionRadius = INITIAL_COLLISION_RAIDUS;
 }
 
 Character::Character(SDL_Renderer* renderer, std::string path, Vector2D startPosition)
@@ -20,6 +21,7 @@ Character::Character(SDL_Renderer* renderer, std::string path, Vector2D startPos
 	m_Direction = DIRECTION::RIGHT;
 	m_IsMovingLeft = false;
 	m_JumpForce = JUMP_FORCE;
+	m_CollisionRadius = INITIAL_COLLISION_RAIDUS;
 	m_Texture = new Texture2D(renderer);
 	if (!m_Texture->LoadFromFile(path.c_str()))
 	{
@@ -38,6 +40,16 @@ Character::~Character()
 		delete m_Texture;
 		m_Texture = nullptr;
 	}
+}
+
+Rect2D Character::GetCollisionBox()
+{
+	return Rect2D(m_Position.x, m_Position.y, m_Texture->GetWidth(), m_Texture->GetHeight());
+}
+
+float Character::GetCollisionRadius()
+{
+	return m_CollisionRadius;
 }
 
 void Character::Jump()

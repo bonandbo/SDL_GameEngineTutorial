@@ -21,6 +21,9 @@ public:
 	Vector2D GetPosition();
 	void AddGravity(float deltaTime);
 	void Jump();
+	float GetCollisionRadius();
+	Rect2D GetCollisionBox();
+
 private:
 	SDL_Renderer* m_Renderer;
 	Vector2D m_Position;
@@ -31,4 +34,7 @@ private:
 	float m_JumpForce;
 	bool m_IsJumping;
 	bool m_CanJump;
+
+protected:
+	float m_CollisionRadius;
 };
