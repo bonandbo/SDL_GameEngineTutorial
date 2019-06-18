@@ -32,3 +32,9 @@ constexpr int SCREEN_HEIGHT 416
 
 #define INITIAL_POS_MARIO_Y 340.0f
 #define INITIAL_COLLISION_RAIDUS 15.0f
+
+#define MAP_WIDTH 16
+#define MAP_HEIGHT 13
+
+#define TILE_WIDTH 32
+#define TILE_HEIGHT 32

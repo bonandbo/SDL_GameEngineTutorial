@@ -5,12 +5,14 @@
 #include "Commons.h"
 
 class Texture2D;
+class LevelMap;
 
 class Character
 {
 public:
 	Character();
-	Character(SDL_Renderer* renderer, std::string path, Vector2D startPosition);
+	//Character(SDL_Renderer* renderer, std::string path, Vector2D startPosition);
+	Character(SDL_Renderer* renderer, std::string path, Vector2D startPosition, LevelMap* map);
 	~Character();
 
 	virtual void Render();
@@ -34,6 +36,7 @@ private:
 	float m_JumpForce;
 	bool m_IsJumping;
 	bool m_CanJump;
+	LevelMap* m_LevelMap;
 
 protected:
 	float m_CollisionRadius;

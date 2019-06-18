@@ -1,6 +1,6 @@
 #include "Character.h"
 #include "Texture2D.h"
-
+#include "LevelMap.h"
 
 Character::Character()
 {
@@ -12,9 +12,10 @@ Character::Character()
 	m_IsMoving = false;
 	m_JumpForce = 0.0f;
 	m_CollisionRadius = INITIAL_COLLISION_RAIDUS;
+	m_LevelMap = nullptr;
 }
 
-Character::Character(SDL_Renderer* renderer, std::string path, Vector2D startPosition)
+Character::Character(SDL_Renderer* renderer, std::string path, Vector2D startPosition, LevelMap* map)
 {
 	m_Renderer = renderer;
 	m_Position = startPosition;
@@ -23,6 +24,7 @@ Character::Character(SDL_Renderer* renderer, std::string path, Vector2D startPos
 	m_JumpForce = JUMP_FORCE;
 	m_CollisionRadius = INITIAL_COLLISION_RAIDUS;
 	m_Texture = new Texture2D(renderer);
+	m_LevelMap = map;
 	if (!m_Texture->LoadFromFile(path.c_str()))
 	{
 		LOG("Error here\n");
@@ -67,6 +69,7 @@ void Character::AddGravity(float deltaTime)
 	if (m_JumpForce <= 0)
 	{
 		m_Position.y += GRAVITY * deltaTime;
+		m_CanJump = false;
 	}
 }
 
@@ -100,16 +103,29 @@ void Character::Render()
 
 void Character::Update(float deltaTime, SDL_Event e)
 {
-	if (m_Position.y >= INITIAL_POS_MARIO_Y)
+	// Collision position variable
+	int centralXPosition = (int)(m_Position.x + (m_Texture->GetWidth() * 0.5f)) / TILE_WIDTH;
+	int footPosition = (int)(m_Position.y + (m_Texture->GetHeight())) / TILE_HEIGHT;
+
+	// Deal with gravity
+	if (m_LevelMap->getTileAt(footPosition, centralXPosition) == 0)
 	{
-		m_CanJump = true;
+		AddGravity(deltaTime);
 	}
 	else
 	{
-		m_CanJump = false;
-		AddGravity(deltaTime);
+		m_CanJump = true;
 	}
-	//LOG("y = %f", m_Position.y);
+
+	//if (m_Position.y >= INITIAL_POS_MARIO_Y)
+	//{
+	//	m_CanJump = true;
+	//}
+	//else
+	//{
+	//	m_CanJump = false;
+	//	AddGravity(deltaTime);
+	//}
 
 	if (m_IsJumping)
 	{
@@ -151,7 +167,7 @@ void Character::Update(float deltaTime, SDL_Event e)
 			m_IsMoving = false;
 			break;
 		case SDLK_UP:
-			if(m_CanJump)
+			//if(m_CanJump)
 				Jump();
 			break;
 		}

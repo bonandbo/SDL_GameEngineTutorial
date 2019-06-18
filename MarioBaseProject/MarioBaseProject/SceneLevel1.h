@@ -7,6 +7,7 @@
 
 class Texture2D; // promise to compiler
 class Character;
+class LevelMap;
 // what if we dont
 
 class SceneLevel1 : Scene
@@ -23,4 +24,6 @@ private:
 	Texture2D* m_BackgroundTex;
 	bool SetLevel();
 	Character* m_Mario;
+	void SetLevelMap();
+	LevelMap* m_LevelMap;
 };
