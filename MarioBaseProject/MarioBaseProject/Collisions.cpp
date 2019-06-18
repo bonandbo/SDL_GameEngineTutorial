@@ -41,6 +41,24 @@ bool Collisions::Circle(Character* char1, Character* char2)
 	return distance < combinedDistance;
 }
 
+bool Circle(Circle2D circle1, Circle2D circle2)
+{
+	bool isCollide = false;
+
+	// vector connect 2 center
+	Vector2D vec = Vector2D(circle1.x - circle2.x, circle1.y - circle2.y);
+
+	// length of vector
+	double distance = sqrt(vec.x * vec.x + vec.y * vec.y);
+
+	// length of 2 radius
+	double radiusDistance = circle1.r + circle1.r;
+
+	return distance < radiusDistance;
+
+	return isCollide;
+}
+
 bool Collisions::Box(Rect2D rect1, Rect2D rect2)
 {
 	if (rect1.x + (rect1.w / 2) > rect2.x

@@ -10,7 +10,11 @@ constexpr int SCREEN_HEIGHT 416
 */
 
 
+#ifdef DEBUG
 #define LOG(...) { printf(__VA_ARGS__); printf("\n"); }
+#else
+#define LOG(...)
+#endif
 
 #define FOLDER_IMG "Images"
 

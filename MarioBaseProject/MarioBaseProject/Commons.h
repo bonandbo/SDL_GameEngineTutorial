@@ -20,6 +20,15 @@ struct Rect2D
 	Rect2D(float _x, float _y, size_t _w, size_t _h) : x(_x), y(_y), w(_w), h(_h) {};
 };
 
+struct Circle2D
+{
+	float x, y; // center point
+	float r;
+
+	Circle2D() : x(0.0f), y(0.0f), r(0.0f) {};
+	Circle2D(float _x, float _y, float _r) : x(_x), y(_y), r(_r) {};
+};
+
 enum SCENES
 {
 	INTRO = 0,
