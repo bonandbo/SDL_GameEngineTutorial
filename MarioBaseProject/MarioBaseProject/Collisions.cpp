@@ -61,12 +61,48 @@ bool Circle(Circle2D circle1, Circle2D circle2)
 
 bool Collisions::Box(Rect2D rect1, Rect2D rect2)
 {
-	if (rect1.x + (rect1.w / 2) > rect2.x
-		&&	rect1.x + (rect1.w / 2) < rect2.x + rect2.w
-		&&	rect1.y + (rect1.h / 2) > rect2.y
-		&&	rect1.y + (rect1.h / 2) > rect2.y + rect2.h)
+	int leftA, leftB, rightA, rightB, topA, topB, botA, botB;
+
+	// calculate side rect1
+	leftA = rect1.x;
+	rightA = rect1.x + rect1.w;
+	topA = rect1.y;
+	botA = rect1.y + rect1.h;
+
+	// calculate side rect2
+	leftB = rect2.x;
+	rightB = rect2.x + rect2.w;
+	topB = rect2.y;
+	botB = rect2.y + rect2.h;
+
+	// Check collide
+	if (botA <= topB)
 	{
-		return true;
+		return false;
 	}
-	return false;
+	if (topA >= botB)
+	{
+		return false;
+	}
+	if (rightA <= leftB)
+	{
+		return false;
+	}
+	if (leftA >= rightB)
+	{
+		return false;
+	}
+
+	// none of them => true
+	return true;
+
+
+	//if (rect1.x + (rect1.w) > rect2.x
+	//	&&	rect1.x + (rect1.w) < rect2.x + rect2.w
+	//	&&	rect1.y + (rect1.h) > rect2.y
+	//	&&	rect1.y + (rect1.h) > rect2.y + rect2.h)
+	//{
+	//	return true;
+	//}
+	//return false;
 }

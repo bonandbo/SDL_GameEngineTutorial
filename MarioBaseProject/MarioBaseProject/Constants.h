@@ -12,6 +12,7 @@ constexpr int SCREEN_HEIGHT 416
 
 #ifdef DEBUG
 #define LOG(...) { printf(__VA_ARGS__); printf("\n"); }
+//#define DEBUG_RENDER
 #else
 #define LOG(...)
 #endif
@@ -38,3 +39,5 @@ constexpr int SCREEN_HEIGHT 416
 
 #define TILE_WIDTH 32
 #define TILE_HEIGHT 32
+
+#define NUMBER_HIT_LEFT 3

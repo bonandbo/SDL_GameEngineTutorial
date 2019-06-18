@@ -129,6 +129,7 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="LevelMap.cpp" />
+    <ClCompile Include="PowBlock.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneIntro.cpp" />
     <ClCompile Include="SceneLevel1.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Commons.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="LevelMap.h" />
+    <ClInclude Include="PowBlock.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneIntro.h" />
     <ClInclude Include="SceneLevel1.h" />

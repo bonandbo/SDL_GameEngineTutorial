@@ -64,9 +64,9 @@ void Character::Jump()
 	}
 }
 
-void Character::AddGravity(float deltaTime)
+void Character::AddGravity(float deltaTime, float gravity)
 {
-	m_Position.y += 96  * deltaTime;
+	m_Position.y += gravity * deltaTime;
 	m_CanJump = false;
 }
 
@@ -96,6 +96,18 @@ void Character::Render()
 		//LOG("x = %f\n", m_Position.x);
 		m_Texture->Render(m_Position, SDL_FLIP_NONE);
 	} 
+
+#ifdef DEBUG_RENDER
+	SDL_Rect dst = { (int)GetCollisionBox().x, (int)GetCollisionBox().y, (int)GetCollisionBox().w, (int)GetCollisionBox().h };
+	SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 0);
+	SDL_RenderFillRect(m_Renderer, &dst);
+#endif
+}
+
+void Character::CancelJump(float deltaTime)
+{
+	m_IsJumping = false;
+	AddGravity(deltaTime, 300.0f);
 }
 
 void Character::Update(float deltaTime, SDL_Event e)
@@ -114,21 +126,11 @@ void Character::Update(float deltaTime, SDL_Event e)
 		m_CanJump = true;
 	}
 
-	//if (m_Position.y >= INITIAL_POS_MARIO_Y)
-	//{
-	//	m_CanJump = true;
-	//}
-	//else
-	//{
-	//	m_CanJump = false;
-	//	AddGravity(deltaTime);
-	//}
-
 	if (m_IsJumping)
 	{
 		m_Position.y -= m_JumpForce * deltaTime;
 		m_JumpForce -= GRAVITY * deltaTime;
-		LOG("jump Force = %f", m_JumpForce);
+		//LOG("jump Force = %f", m_JumpForce);
 		if (m_JumpForce <= 0.0f)
 		{
 			m_IsJumping = false;

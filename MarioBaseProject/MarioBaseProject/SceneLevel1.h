@@ -8,6 +8,7 @@
 class Texture2D; // promise to compiler
 class Character;
 class LevelMap;
+class PowBlock;
 // what if we dont
 
 class SceneLevel1 : Scene
@@ -19,6 +20,8 @@ public:
 
 	void Render();
 	void Update(float deltaTime, SDL_Event e);
+	void UpdatePowBlock(float deltaTime);
+	void DoScreenShake();
 
 private:
 	Texture2D* m_BackgroundTex;
@@ -26,4 +29,5 @@ private:
 	Character* m_Mario;
 	void SetLevelMap();
 	LevelMap* m_LevelMap;
+	PowBlock* m_PowBlock;
 };

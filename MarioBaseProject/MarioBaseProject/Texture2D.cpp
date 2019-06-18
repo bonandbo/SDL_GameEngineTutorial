@@ -47,7 +47,7 @@ bool Texture2D::LoadFromFile(std::string path)
 	else
 	{
 		// Color the key image - the color to be transparent
-		SDL_SetColorKey(p_Surface, SDL_TRUE, SDL_MapRGB(p_Surface->format, 0, 0xFF, 0xFF));
+		SDL_SetColorKey(p_Surface, SDL_TRUE, SDL_MapRGB(p_Surface->format, 0, 255, 255));
 
 		// Create texture
 		m_Texture = SDL_CreateTextureFromSurface(m_Renderer, p_Surface);
@@ -74,7 +74,7 @@ void Texture2D::Render(Vector2D newPosition, SDL_RendererFlip flip, double angle
 {
 	// do we need this ?
 	// Clear the screen
-	//SDL_SetRenderDrawColor(m_Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	//SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
 	//SDL_RenderClear(m_Renderer);
 
 	// Set where to draw Texture
@@ -82,6 +82,11 @@ void Texture2D::Render(Vector2D newPosition, SDL_RendererFlip flip, double angle
 
 	// Render it
 	SDL_RenderCopyEx(m_Renderer, m_Texture, nullptr, &renderLocation, angle, nullptr, flip);
+}
+
+void Texture2D::Render(SDL_Rect srcRect, SDL_Rect desRect, SDL_RendererFlip flip, double angle)
+{
+	SDL_RenderCopyEx(m_Renderer, m_Texture, &srcRect, &desRect, angle, nullptr, flip);
 }
 
 void Texture2D::Free()

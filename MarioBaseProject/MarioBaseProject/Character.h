@@ -21,10 +21,12 @@ public:
 
 	void SetPosition(Vector2D pos);
 	Vector2D GetPosition();
-	void AddGravity(float deltaTime);
+	void AddGravity(float deltaTime, float gravity = 96.0f);
 	void Jump();
 	float GetCollisionRadius();
 	Rect2D GetCollisionBox();
+	bool IsJumping() { return m_IsJumping; };
+	void CancelJump(float deltaTime);
 
 private:
 	SDL_Renderer* m_Renderer;
