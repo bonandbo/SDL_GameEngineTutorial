@@ -66,11 +66,8 @@ void Character::Jump()
 
 void Character::AddGravity(float deltaTime)
 {
-	if (m_JumpForce <= 0)
-	{
-		m_Position.y += GRAVITY * deltaTime;
-		m_CanJump = false;
-	}
+	m_Position.y += 96  * deltaTime;
+	m_CanJump = false;
 }
 
 void Character::MoveHorizontal(float deltaTime)
@@ -108,7 +105,7 @@ void Character::Update(float deltaTime, SDL_Event e)
 	int footPosition = (int)(m_Position.y + (m_Texture->GetHeight())) / TILE_HEIGHT;
 
 	// Deal with gravity
-	if (m_LevelMap->getTileAt(footPosition, centralXPosition) == 0)
+	if (m_LevelMap->GetTileAt(footPosition, centralXPosition) == 0)
 	{
 		AddGravity(deltaTime);
 	}

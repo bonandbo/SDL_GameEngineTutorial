@@ -34,10 +34,16 @@ LevelMap::~LevelMap()
 	delete[] m_Map;
 }
 
-int LevelMap::getTileAt(size_t x, size_t y)
+int LevelMap::GetTileAt(size_t x, size_t y)
 {
 	if (x < MAP_HEIGHT && y < MAP_WIDTH)
 		return m_Map[x][y];
 
 	return 0;
+}
+
+void LevelMap::ChangeTileAt(size_t row, size_t column, size_t newValue)
+{
+	if(row < MAP_HEIGHT && column < MAP_WIDTH)
+		m_Map[row][column] = newValue;
 }

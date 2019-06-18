@@ -28,7 +28,7 @@ constexpr int SCREEN_HEIGHT 416
 
 #define MOVEMENT_SPD 200.0f
 #define GRAVITY 400.0f
-#define JUMP_FORCE 300.0f
+#define JUMP_FORCE 400.0f
 
 #define INITIAL_POS_MARIO_Y 340.0f
 #define INITIAL_COLLISION_RAIDUS 15.0f
