@@ -3,10 +3,11 @@
 #include "Commons.h"
 #include "SDL.h"
 #include "Scene.h"
-#include "Character.h"
+
 
 class Texture2D; // promise to compiler
 class Character;
+class CharacterMario;
 class LevelMap;
 class PowBlock;
 // what if we dont
@@ -26,7 +27,7 @@ public:
 private:
 	Texture2D* m_BackgroundTex;
 	bool SetLevel();
-	Character* m_Mario;
+	CharacterMario* m_Mario;
 	void SetLevelMap();
 	LevelMap* m_LevelMap;
 	PowBlock* m_PowBlock;

@@ -139,39 +139,6 @@ void Character::Update(float deltaTime, SDL_Event e)
 
 	if(m_IsMoving)
 		MoveHorizontal(deltaTime);
-
-	switch (e.type)
-	{
-	case SDL_KEYDOWN:
-		switch (e.key.keysym.sym)
-		{
-			// what happend if 2 key press at the same time
-		case SDLK_LEFT:
-			m_IsMoving = true;
-			m_IsMovingLeft = true;
-			break;
-		case SDLK_RIGHT:
-			m_IsMoving = true;
-			m_IsMovingLeft = false;
-			break;
-		}
-		break;
-	case SDL_KEYUP:
-		switch (e.key.keysym.sym)
-		{
-		case SDLK_LEFT:
-			m_IsMoving = false;
-			break;
-		case SDLK_RIGHT:
-			m_IsMoving = false;
-			break;
-		case SDLK_UP:
-			//if(m_CanJump)
-				Jump();
-			break;
-		}
-		break;
-	}
 }
 
 void Character::SetPosition(Vector2D pos)

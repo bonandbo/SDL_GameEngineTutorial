@@ -1,10 +1,12 @@
 #include "SceneLevel1.h"
 #include "Texture2D.h" // finally, we kept our promise
 #include <iostream>
-//#include "Constants.h"
+#include "Constants.h"
 #include "LevelMap.h"
 #include "PowBlock.h"
 #include "Collisions.h"
+#include "Character.h"
+#include "CharacterMario.h"
 
 SceneLevel1::SceneLevel1() : m_BackgroundTex(nullptr), m_Mario(nullptr), m_LevelMap(nullptr), m_PowBlock(nullptr) { }
 
@@ -122,7 +124,7 @@ bool SceneLevel1::SetLevel()
 	SetLevelMap();
 
 	// Set up the character
-	m_Mario = new Character(m_Renderer, std::string(FOLDER_IMG).append("/").append(MARIO_IMG).c_str(), Vector2D(64, INITIAL_POS_MARIO_Y), m_LevelMap);
+	m_Mario = new CharacterMario(m_Renderer, std::string(FOLDER_IMG).append("/").append(MARIO_IMG).c_str(), Vector2D(64, INITIAL_POS_MARIO_Y), m_LevelMap);
 	// why we handle update in character but pass the position here ?
 
 	m_PowBlock = new PowBlock(m_Renderer, m_LevelMap, Vector2D());
