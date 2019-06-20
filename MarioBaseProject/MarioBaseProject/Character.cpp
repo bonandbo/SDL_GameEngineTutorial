@@ -11,6 +11,8 @@ Character::Character()
 	m_IsMovingLeft = false;
 	m_IsMoving = false;
 	m_JumpForce = 0.0f;
+	m_MovementSpeed = 0.0f;
+	m_IsAlive = false;
 	m_CollisionRadius = INITIAL_COLLISION_RAIDUS;
 	m_LevelMap = nullptr;
 }
@@ -25,6 +27,8 @@ Character::Character(SDL_Renderer* renderer, std::string path, Vector2D startPos
 	m_CollisionRadius = INITIAL_COLLISION_RAIDUS;
 	m_Texture = new Texture2D(renderer);
 	m_LevelMap = map;
+	m_IsAlive = true;
+	m_MovementSpeed = MOVEMENT_SPD;
 	if (!m_Texture->LoadFromFile(path.c_str()))
 	{
 		LOG("Error here\n");
@@ -75,12 +79,12 @@ void Character::MoveHorizontal(float deltaTime)
 	if (m_IsMovingLeft)
 	{
 		m_Direction = DIRECTION::LEFT;
-		m_Position.x -= (MOVEMENT_SPD * deltaTime); // is that true to put it here ?
+		m_Position.x -= (m_MovementSpeed * deltaTime); // is that true to put it here ?
 	}
 	else
 	{
 		m_Direction = DIRECTION::RIGHT;
-		m_Position.x += (MOVEMENT_SPD * deltaTime); // is that true to put it here ?
+		m_Position.x += (m_MovementSpeed * deltaTime); // is that true to put it here ?
 	}
 }
 

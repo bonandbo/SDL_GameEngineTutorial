@@ -28,6 +28,8 @@ public:
 	Rect2D		GetCollisionBox();
 	bool		IsJumping() { return m_IsJumping; };
 	void		CancelJump(float deltaTime);
+	void		SetAlive(bool isAlive) { m_IsAlive = isAlive; };
+	bool		IsAlive() { return m_IsAlive; };
 
 public: // change to public because some of theme was acees from SceneLevel1. To fix later
 	SDL_Renderer*	m_Renderer;
@@ -36,11 +38,13 @@ public: // change to public because some of theme was acees from SceneLevel1. To
 	bool			m_CanJump;
 	LevelMap*		m_LevelMap;
 	 
-public: // change to public because some of theme was acees from SceneLevel1. To fix later
+protected: // change to public because some of theme was acees from SceneLevel1. To fix later
 	float			m_CollisionRadius;
 	bool			m_IsMovingLeft;
 	bool			m_IsMoving;
 	DIRECTION		m_Direction;
 	Vector2D		m_Position;
 	Texture2D*		m_Texture;
+	float			m_MovementSpeed;
+	bool			m_IsAlive;
 };

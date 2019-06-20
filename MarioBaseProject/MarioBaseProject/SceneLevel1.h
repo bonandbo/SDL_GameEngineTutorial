@@ -3,6 +3,7 @@
 #include "Commons.h"
 #include "SDL.h"
 #include "Scene.h"
+#include <vector>
 
 
 class Texture2D; // promise to compiler
@@ -10,6 +11,7 @@ class Character;
 class CharacterMario;
 class LevelMap;
 class PowBlock;
+class CharacterKoopa;
 // what if we dont
 
 class SceneLevel1 : Scene
@@ -23,6 +25,8 @@ public:
 	void Update(float deltaTime, SDL_Event e);
 	void UpdatePowBlock(float deltaTime);
 	void DoScreenShake();
+	void UpdateEnemies(float deltaTime, SDL_Event e);
+	void CreateKoopa(Vector2D pos, DIRECTION direction, float speed);
 
 private:
 	Texture2D* m_BackgroundTex;
@@ -31,4 +35,5 @@ private:
 	void SetLevelMap();
 	LevelMap* m_LevelMap;
 	PowBlock* m_PowBlock;
+	std::vector<CharacterKoopa*> m_Enemies;
 };

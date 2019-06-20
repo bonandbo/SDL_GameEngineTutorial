@@ -7,6 +7,7 @@
 #include "Collisions.h"
 #include "Character.h"
 #include "CharacterMario.h"
+#include "CharacterKoopa.h"
 
 SceneLevel1::SceneLevel1() : m_BackgroundTex(nullptr), m_Mario(nullptr), m_LevelMap(nullptr), m_PowBlock(nullptr) { }
 
@@ -43,7 +44,8 @@ SceneLevel1::~SceneLevel1()
 		m_Mario = nullptr;
 	}
 
-	
+	// clear vector
+	m_Enemies.clear(); // is it enough ?
 }
 
 void SceneLevel1::Render()
@@ -52,6 +54,11 @@ void SceneLevel1::Render()
 	m_BackgroundTex->Render(Vector2D(), SDL_FLIP_NONE);
 	m_Mario->Render();
 	m_PowBlock->Render();
+	// draw the enemies
+	for (size_t i = 0; i < m_Enemies.size(); i++)
+	{
+		m_Enemies[i]->Render();
+	}
 }
 
 void SceneLevel1::UpdatePowBlock(float deltaTime)
@@ -73,12 +80,74 @@ void SceneLevel1::UpdatePowBlock(float deltaTime)
 
 void SceneLevel1::DoScreenShake()
 {
-
+	for (auto enemy : m_Enemies)
+	{
+		enemy->TakeDamage();
+	}
 }
+
+void SceneLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
+{
+	// if we have enemy then update
+	if (!m_Enemies.empty())
+	{
+		int enemyIndexToDelete = -1;
+		for (size_t i = 0; i < m_Enemies.size(); i++)
+		{
+			// Check if enemy is on the bottome row of tiles
+			if (m_Enemies[i]->GetPosition().y >= MAP_1_BOTTOM_ROW)
+			{
+				// check if enemy out of screen
+				if (m_Enemies[i]->GetPosition().x > SCREEN_WIDTH
+					|| m_Enemies[i]->GetPosition().x < m_Enemies[i]->GetPosition().x + m_Enemies[i]->GetCollisionBox().w)
+				{
+					// all die
+					m_Enemies[i]->SetAlive(false);
+				}
+			}
+			
+			// Update Enenmies
+			m_Enemies[i]->Update(deltaTime, e);
+
+			// Check to see if collide
+			if (Collisions::GetInstance()->Box(m_Enemies[i]->GetCollisionBox(), m_Mario->GetCollisionBox()))
+			{
+				//m_Mario->SetState(STATES::CHARACTER_PLAYER_DEATH);
+				m_Mario->SetAlive(false);
+			}
+
+			if (!m_Enemies[i]->IsAlive())
+			{
+				enemyIndexToDelete = i;
+			}
+		}
+
+		// remove the dead one
+		if (enemyIndexToDelete != -1)
+		{
+			m_Enemies.erase(m_Enemies.begin() + enemyIndexToDelete);
+		}
+	}
+}
+
+void SceneLevel1::CreateKoopa(Vector2D pos, DIRECTION direction, float speed)
+{
+
+	CharacterKoopa* koopa = new CharacterKoopa(m_Renderer, 
+												std::string(FOLDER_IMG).append("/").append(KOOPA_IMG).c_str(), 
+												pos, 
+												m_LevelMap, 
+												direction, 
+												speed);
+	m_Enemies.push_back(koopa);
+	koopa = nullptr; // is this true ?
+}
+
 	
 void SceneLevel1::Update(float deltaTime, SDL_Event e)
 {
 	UpdatePowBlock(deltaTime);
+	UpdateEnemies(deltaTime, e);
 	m_Mario->Update(deltaTime, e);
 }
 
@@ -128,6 +197,9 @@ bool SceneLevel1::SetLevel()
 	// why we handle update in character but pass the position here ?
 
 	m_PowBlock = new PowBlock(m_Renderer, m_LevelMap, Vector2D());
+
+	CreateKoopa(Vector2D(150, 32), DIRECTION::RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(325, 32), DIRECTION::LEFT, KOOPA_SPEED);
 
 	return true;
 }

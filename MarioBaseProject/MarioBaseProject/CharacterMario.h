@@ -15,6 +15,6 @@ public:
 
 	void Update(float deltaTime, SDL_Event e);
 
-public:
+private:
 	void HandleEvent(SDL_Event e);
 };

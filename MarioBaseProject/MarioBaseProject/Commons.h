@@ -39,6 +39,11 @@ enum SCENES
 	HIGHSCORE
 };
 
+enum STATES
+{
+	CHARACTER_PLAYER_DEATH = 0
+};
+
 
 enum DIRECTION
 {

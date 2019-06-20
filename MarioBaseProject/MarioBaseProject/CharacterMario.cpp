@@ -35,6 +35,8 @@ void CharacterMario::HandleEvent(SDL_Event e)
 			m_IsMoving = true;
 			m_IsMovingLeft = false;
 			break;
+		default: 
+			break;
 		}
 		break;
 	case SDL_KEYUP:
@@ -47,9 +49,13 @@ void CharacterMario::HandleEvent(SDL_Event e)
 			m_IsMoving = false;
 			break;
 		case SDLK_UP:
-			Jump();
+			Character::Jump();
+			break;
+		default:
 			break;
 		}
+		break;
+	default:
 		break;
 	}
 }

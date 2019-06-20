@@ -61,7 +61,7 @@ bool Circle(Circle2D circle1, Circle2D circle2)
 
 bool Collisions::Box(Rect2D rect1, Rect2D rect2)
 {
-	int leftA, leftB, rightA, rightB, topA, topB, botA, botB;
+	float leftA, leftB, rightA, rightB, topA, topB, botA, botB;
 
 	// calculate side rect1
 	leftA = rect1.x;

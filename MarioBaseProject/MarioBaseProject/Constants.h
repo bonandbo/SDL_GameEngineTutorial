@@ -41,3 +41,8 @@ constexpr int SCREEN_HEIGHT 416
 #define TILE_HEIGHT 32
 
 #define NUMBER_HIT_LEFT 3
+
+#define INJURED_TIME 2.5f
+
+#define MAP_1_BOTTOM_ROW 300.0f
+#define KOOPA_SPEED 96.0f
