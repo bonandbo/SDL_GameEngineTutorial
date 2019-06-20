@@ -6,6 +6,7 @@
 #include "Texture2D.h"
 #include "Commons.h"
 #include "SceneManager.h"
+#include "SoundManager.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ using namespace std;
 SDL_Window* g_Window = nullptr; // the window
 SDL_Renderer* g_Renderer = nullptr; // the renderer to draw to screen any textures associated with it
 SceneMaganer* g_SceneMgr = nullptr; 
+
 float g_Angle = 0.0f; // angle flip
 Uint32 g_OldTime;
 
@@ -156,6 +158,11 @@ int main(int argc, char* args[])
 	{
 		//Set up the scene manager - with level 1 as start
 		g_SceneMgr = new SceneMaganer(g_Renderer, SCENES::LEVEL_1);
+
+		// Set up the sound manager 
+		SoundManager::GetInstance()->Init();
+		SoundManager::GetInstance()->LoadBackgroundMusic();
+		SoundManager::GetInstance()->PlayBackgroundMusic();
 
 		g_OldTime = SDL_GetTicks(); // 1 frame time track
 

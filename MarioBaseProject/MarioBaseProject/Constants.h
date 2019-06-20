@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 // Screen dimensions
 #define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 416
@@ -26,6 +28,11 @@ constexpr int SCREEN_HEIGHT 416
 #define LUIGI_IMG "Luigi.png"
 #define MARIO_IMG "Mario.png"
 #define POWBLOCK_IMG "PowBlock.png"
+
+#define FOLDER_MUSIC "Music"
+
+#define BACKGROUND_VOX "MarioUnderworld.mp3"
+#define MARIO_VOX "Mario.mp3"
 
 #define MOVEMENT_SPD 200.0f
 #define GRAVITY 400.0f
