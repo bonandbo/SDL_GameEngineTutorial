@@ -30,6 +30,8 @@ constexpr int SCREEN_HEIGHT 416
 #define POWBLOCK_IMG "PowBlock.png"
 
 #define FOLDER_MUSIC "Music"
+#define FOLDER_LEVEL "Level"
+#define MAP_LEVEL_1 "level1.txt"
 
 #define BACKGROUND_VOX "MarioUnderworld.mp3"
 #define MARIO_VOX "Mario.mp3"

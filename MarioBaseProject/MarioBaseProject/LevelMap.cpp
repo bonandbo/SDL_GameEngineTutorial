@@ -1,37 +1,60 @@
 #include "LevelMap.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 
 LevelMap::LevelMap()
 {
 	m_Map = nullptr;
+	m_Width = 0;
+	m_Height = 0;
 }
 
-LevelMap::LevelMap(int map[MAP_HEIGHT][MAP_WIDTH])
+LevelMap::LevelMap(std::string path)
 {
-	// alloc mem
-	m_Map = new int*[MAP_HEIGHT];
-	for (size_t i = 0; i < MAP_HEIGHT; i++)
-	{
-		m_Map[i] = new int[MAP_WIDTH];
-	}
-
 	// assign value to map
-	for (size_t i = 0; i < MAP_HEIGHT; i++)
-	{
-		for (size_t j = 0; j < MAP_WIDTH; j++)
-		{
-			m_Map[i][j] = map[i][j];
-		}
-	}
+	LoadFromFile(path);
 }
 
 LevelMap::~LevelMap()
 {
-	for (size_t i = 0; i < MAP_HEIGHT; i++)
+	for (int i = 0; i < m_Height; i++)
 	{
 		delete[] m_Map[i];
 	}
 	delete[] m_Map;
+}
+
+void LevelMap::LoadFromFile(std::string filePath) // if using C code will be faster 4-5 times
+{
+	std::ifstream file(filePath);
+	std::string line;
+	
+	// get the first line
+	std::getline(file, line);
+	std::istringstream ss(line);
+	ss >> m_Height >> m_Width;
+
+	// alloc mem
+	m_Map = new int*[m_Height];
+	for (int i = 0; i < m_Height; i++)
+	{
+		m_Map[i] = new int[m_Width];
+	}
+
+	// assign
+	for (int i = 0; i < m_Height; i++)
+	{
+		// get all the rest
+		std::getline(file, line);
+		ss = std::istringstream(line);
+		for (int j = 0; j < m_Width; j++)
+		{
+			ss >> m_Map[i][j];
+		}
+	}
 }
 
 int LevelMap::GetTileAt(size_t x, size_t y)

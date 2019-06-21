@@ -1,0 +1,9 @@
+- Long : fastest
++ No setting image lib for Debug | W32 
++ No setting for Release | W32
+- Minh: 
++ No setting for RElease x64
++ Same for Debug x64
++ Key event should be switch, but he use both swtich + If ? why ?
++ No quit function?
++ Can not move image

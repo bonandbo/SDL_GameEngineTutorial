@@ -153,20 +153,6 @@ void SceneLevel1::Update(float deltaTime, SDL_Event e)
 
 void SceneLevel1::SetLevelMap()
 {
-	int map[MAP_HEIGHT][MAP_WIDTH] = {  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-										{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-										{ 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
-										{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-										{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-										{ 0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0 },
-										{ 1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1 },
-										{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-										{ 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0 },
-										{ 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
-										{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-										{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-										{ 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 } };
-
 	// clear up any old map
 	if (m_LevelMap)
 	{
@@ -174,7 +160,7 @@ void SceneLevel1::SetLevelMap()
 	}
 
 	// Set new one
-	m_LevelMap = new LevelMap(map);
+	m_LevelMap = new LevelMap(std::string(FOLDER_LEVEL).append("/").append(MAP_LEVEL_1));
 }
 
 bool SceneLevel1::SetLevel()
