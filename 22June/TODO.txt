@@ -1,0 +1,97 @@
+- Check homework1 folder for homework - 10 mins
++ Question: 
++ + why IMG_INit & flag ?
++ + What needed to be render a square to screen
++ + ...
+
+- Improve the existing project by split as much functions as possible: 30 mins
++ IMG_Quit()
++ HandleEvent(SDL_Event e)
++ LoadFromFile ( image )
++ Vector2D struct ?
+
+- What happen if we want to have more than 1 image on screen ? how many function to call draw, init and everything
+we have to add ? 
++ The idea here is every time we need a texture, just need : Texture* texture = new Texture(path_to_file);
++ Create class Texture2D by draw an UML related ( 15 mins )
+===============
+   Texture2D 
+===============
+// data
+- width
+- height
+- sdl_renderer ( when call draw )
+- sdl_texture ( chac chan roi )
+===============
+// function
++ Constructor()
++ Destructor()
++ FreeMemory()
++ Get & Set
++ bool LoadFromFile(string file path) // return if load success or not
++ Render(param ?)
+===============
+
+- Now how can we use the Texture2D class ?
++ Remove all the SDL_Texture usage in Source
++ Replace by the texture
+
+==============================================================================
+- How about now if I need another screen for About ?
++ We need a SceneManager
++ Idea is when we want to load another scene by pressing key, just need to call ChangeScene
++ Q: preload or in-time load ?
+=====> What is the common for all scene
+=============
+SCENE
+=============
+- Texture ?
+- SDL_Render
+=============
++ Constructor
++ Destructor
+
++ virtual void Render ( pure Virtual ? )
++ virtual void Update ( pure Virtual ? )
+=============
+
+======> Now we have level 1 and intro ...
+What supposed to be in level 1 ? and in intro title ? ( each have 2 diffent background image ) 30 min
+
+=============
+SCENE-LEVEL1
+=============
+- Texture2D
+- SetLevel ( consider each level only have Background )
+=============
++ Constructor
++ Destructor
++ Render
++ Update
+=============
+
+===========> Change scene when press key => Learn how to control memory
+=============================================================================
+We have background now, now we need a player runing on it
+
+- Create Character Class ( 30 min )
+
+=============
+CHARACTER
+=============
+- Texture2D
+- SetLevel ( consider each level only have Background )
+=============
++ Constructor
++ Destructor
++ Render
++ Update
+=============
+
+=============================================================================
+
+COLLISION
+
+=============================================================================
+
+LEVEL MAP

@@ -69,7 +69,7 @@ bool InitSDL()
 	SDL_RENDERER_PRESENTVSYNC		Present is synchronized with the refresh rate
 	SDL_RENDERER_TARGETTEXTURE		The renderer supports rendering to texture
 	*/
-	
+
 	// check if the renderer create successfully
 	if (!g_Renderer)
 	{
