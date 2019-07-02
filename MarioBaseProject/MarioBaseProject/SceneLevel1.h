@@ -12,6 +12,7 @@ class CharacterMario;
 class LevelMap;
 class PowBlock;
 class CharacterKoopa;
+class CharacterAnimated;
 // what if we dont
 
 class SceneLevel1 : Scene
@@ -27,11 +28,13 @@ public:
 	void DoScreenShake();
 	void UpdateEnemies(float deltaTime, SDL_Event e);
 	void CreateKoopa(Vector2D pos, DIRECTION direction, float speed);
+	void CreateCharacterAnimated(Vector2D pos);
 
 private:
 	Texture2D* m_BackgroundTex;
 	bool SetLevel();
 	CharacterMario* m_Mario;
+	CharacterAnimated* m_Animated;
 	void SetLevelMap();
 	LevelMap* m_LevelMap;
 	PowBlock* m_PowBlock;

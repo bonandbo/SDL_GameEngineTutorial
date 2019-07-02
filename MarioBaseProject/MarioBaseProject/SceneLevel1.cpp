@@ -8,6 +8,7 @@
 #include "Character.h"
 #include "CharacterMario.h"
 #include "CharacterKoopa.h"
+#include "CharacterAnimated.h"
 
 SceneLevel1::SceneLevel1() : m_BackgroundTex(nullptr), m_Mario(nullptr), m_LevelMap(nullptr), m_PowBlock(nullptr) { }
 
@@ -59,6 +60,7 @@ void SceneLevel1::Render()
 	{
 		m_Enemies[i]->Render();
 	}
+	m_Animated->Render();
 }
 
 void SceneLevel1::UpdatePowBlock(float deltaTime)
@@ -149,6 +151,7 @@ void SceneLevel1::Update(float deltaTime, SDL_Event e)
 	UpdatePowBlock(deltaTime);
 	UpdateEnemies(deltaTime, e);
 	m_Mario->Update(deltaTime, e);
+	m_Animated->Update(deltaTime, e);
 }
 
 void SceneLevel1::SetLevelMap()
@@ -186,7 +189,15 @@ bool SceneLevel1::SetLevel()
 
 	CreateKoopa(Vector2D(150, 32), DIRECTION::RIGHT, KOOPA_SPEED);
 	CreateKoopa(Vector2D(325, 32), DIRECTION::LEFT, KOOPA_SPEED);
+	
+	CreateCharacterAnimated(Vector2D(200, 110));
 
 	return true;
 }
+
+void SceneLevel1::CreateCharacterAnimated(Vector2D pos)
+{
+	m_Animated = new CharacterAnimated(m_Renderer, std::string(FOLDER_IMG).append("/").append(ANIMATED_IMG).c_str(), pos, m_LevelMap);
+}
+
 

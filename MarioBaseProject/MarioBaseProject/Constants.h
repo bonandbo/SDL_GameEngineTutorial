@@ -28,6 +28,7 @@ constexpr int SCREEN_HEIGHT 416
 #define LUIGI_IMG "Luigi.png"
 #define MARIO_IMG "Mario.png"
 #define POWBLOCK_IMG "PowBlock.png"
+#define ANIMATED_IMG "stickman.png"
 
 #define FOLDER_MUSIC "Music"
 #define FOLDER_LEVEL "Level"
@@ -55,3 +56,5 @@ constexpr int SCREEN_HEIGHT 416
 
 #define MAP_1_BOTTOM_ROW 300.0f
 #define KOOPA_SPEED 96.0f
+
+#define STICKMAN_SPRITE_PER_FRAME 4

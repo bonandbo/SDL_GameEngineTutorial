@@ -19,6 +19,7 @@ SceneMaganer* g_SceneMgr = nullptr;
 
 float g_Angle = 0.0f; // angle flip
 Uint32 g_OldTime;
+//static size_t g_lastLogID = 0;
 
 // Function Prototypes
 bool InitSDL();

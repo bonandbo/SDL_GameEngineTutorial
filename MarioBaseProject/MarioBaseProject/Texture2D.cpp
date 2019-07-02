@@ -1,6 +1,7 @@
 #include "Texture2D.h"
 #include <SDL_image.h>
 
+// default constructor
 Texture2D::Texture2D()
 {
 	m_Renderer = nullptr;
@@ -9,6 +10,7 @@ Texture2D::Texture2D()
 	m_Height = 0;
 }
 
+// non-default constructor
 Texture2D::Texture2D(SDL_Renderer* renderer)
 {
 	m_Renderer = renderer;
@@ -17,13 +19,18 @@ Texture2D::Texture2D(SDL_Renderer* renderer)
 	m_Height = 0;
 }
 
-
+// destructor
 Texture2D::~Texture2D()
 {
 	Free();
 	if (m_Renderer)
-		//SDL_DestroyRenderer(m_Renderer); // why can not destroy here ?
+	{
+
+		//SDL_DestroyRenderer(m_Renderer); 
+		// why can not destroy here ?
 		m_Renderer = nullptr;
+	}
+
 	m_Width = 0;
 	m_Height = 0;
 }
@@ -89,6 +96,7 @@ void Texture2D::Render(SDL_Rect srcRect, SDL_Rect desRect, SDL_RendererFlip flip
 	SDL_RenderCopyEx(m_Renderer, m_Texture, &srcRect, &desRect, angle, nullptr, flip);
 }
 
+// free texture memory
 void Texture2D::Free()
 {
 	if (m_Texture)
@@ -96,6 +104,4 @@ void Texture2D::Free()
 		SDL_DestroyTexture(m_Texture);
 		m_Texture = nullptr;
 	}
-
-		
 }
