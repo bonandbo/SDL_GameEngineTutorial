@@ -9,6 +9,7 @@
 #include "CharacterMario.h"
 #include "CharacterKoopa.h"
 #include "CharacterAnimated.h"
+#include "Coin.h"
 
 SceneLevel1::SceneLevel1() : m_BackgroundTex(nullptr), m_Mario(nullptr), m_LevelMap(nullptr), m_PowBlock(nullptr) { }
 
@@ -60,7 +61,11 @@ void SceneLevel1::Render()
 	{
 		m_Enemies[i]->Render();
 	}
-	m_Animated->Render();
+	//m_Animated->Render();
+	if (m_Coin)
+	{
+		m_Coin->Render();
+	}
 }
 
 void SceneLevel1::UpdatePowBlock(float deltaTime)
@@ -150,8 +155,9 @@ void SceneLevel1::Update(float deltaTime, SDL_Event e)
 {
 	UpdatePowBlock(deltaTime);
 	UpdateEnemies(deltaTime, e);
+	UpdateCoin(deltaTime, e);
 	m_Mario->Update(deltaTime, e);
-	m_Animated->Update(deltaTime, e);
+	//m_Animated->Update(deltaTime, e);
 }
 
 void SceneLevel1::SetLevelMap()
@@ -190,14 +196,58 @@ bool SceneLevel1::SetLevel()
 	CreateKoopa(Vector2D(150, 32), DIRECTION::RIGHT, KOOPA_SPEED);
 	CreateKoopa(Vector2D(325, 32), DIRECTION::LEFT, KOOPA_SPEED);
 	
-	CreateCharacterAnimated(Vector2D(200, 110));
+	//CreateCharacterAnimated(Vector2D(200, 110));
 
 	return true;
 }
 
-void SceneLevel1::CreateCharacterAnimated(Vector2D pos)
+//void SceneLevel1::CreateCharacterAnimated(Vector2D pos)
+//{
+//	m_Animated = new CharacterAnimated(m_Renderer, std::string(FOLDER_IMG).append("/").append(ANIMATED_IMG).c_str(), pos, m_LevelMap);
+//}
+
+void SceneLevel1::SpawnCoin(std::vector<Vector2D> vPosition)
 {
-	m_Animated = new CharacterAnimated(m_Renderer, std::string(FOLDER_IMG).append("/").append(ANIMATED_IMG).c_str(), pos, m_LevelMap);
+
+}
+
+void SceneLevel1::SpawnCoin(Vector2D pos)
+{
+	if (!m_Coin)
+	{
+		m_Coin = new Coin(m_Renderer, std::string(FOLDER_IMG).append("/").append(COIN_IMG), pos, m_LevelMap);
+		m_Coin->SetIsAlive(true);
+	}
+}
+
+void SceneLevel1::UpdateCoin(float deltaTime, SDL_Event e)
+{
+	SpawnCoin(Vector2D());
+	if (m_Coin != nullptr)
+	{
+		if (m_Coin->GetPosition().x + m_Coin->GetWidth() > SCREEN_WIDTH
+					|| m_Coin->GetPosition().x < 0
+					|| m_Coin->GetPosition().y < 0
+					|| m_Coin->GetPosition().y > SCREEN_HEIGHT)
+		{
+			m_Coin->SetIsAlive(true);
+			m_Coin->SetPosition(Vector2D(0, m_Coin->GetPosition().y));
+			//delete m_Coin;
+			//m_Coin = nullptr;
+		}
+		else
+		{
+			if (Collisions::GetInstance()->Circle(Circle2D(m_Mario->GetPosition().x, m_Mario->GetPosition().y, m_Mario->GetCollisionRadius()), 
+												Circle2D(m_Coin->GetPosition().x, m_Coin->GetPosition().y, m_Coin->GetCollisionRadius())))
+			{
+				m_Coin->SetIsAlive(false);
+				delete m_Coin;
+				m_Coin = nullptr;
+			}
+		}
+	}
+	if(m_Coin)
+		m_Coin->Update(deltaTime, e);
 }
 
 

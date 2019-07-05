@@ -22,5 +22,4 @@ private:
 	SDL_Rect m_SpriteClips[STICKMAN_SPRITE_PER_FRAME];
 
 	int m_Frame;
-	
 };

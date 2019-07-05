@@ -14,7 +14,7 @@ constexpr int SCREEN_HEIGHT 416
 
 #ifdef DEBUG
 #define LOG(...) { printf(__VA_ARGS__); printf("\n"); }
-//#define DEBUG_RENDER
+#define DEBUG_RENDER
 #else
 #define LOG(...)
 #endif
@@ -58,3 +58,6 @@ constexpr int SCREEN_HEIGHT 416
 #define KOOPA_SPEED 96.0f
 
 #define STICKMAN_SPRITE_PER_FRAME 4
+#define NUMBER_OF_SPRITE_COIN 3
+
+#define NUMBER_COIN_FRAME 3

@@ -41,7 +41,7 @@ bool Collisions::Circle(Character* char1, Character* char2)
 	return distance < combinedDistance;
 }
 
-bool Circle(Circle2D circle1, Circle2D circle2)
+bool Collisions::Circle(Circle2D circle1, Circle2D circle2)
 {
 	bool isCollide = false;
 

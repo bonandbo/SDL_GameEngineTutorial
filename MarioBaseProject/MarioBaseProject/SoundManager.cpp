@@ -61,7 +61,7 @@ void SoundManager::PlaySound(Mix_Music* sound, int loops)
 	{
 		if (Mix_PlayingMusic() == 0)
 		{
-			Mix_PlayMusic(sound, loops);
+			//Mix_PlayMusic(sound, loops);
 		}
 	}
 }
